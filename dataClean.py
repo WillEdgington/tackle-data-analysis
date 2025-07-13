@@ -1,6 +1,14 @@
 import pandas as pd
 
-def txtToArray(path: str="data/Results.txt") -> list:
+def txtToArray(path: str) -> list:
+    """Loads a .txt file into an array.
+
+    Args:
+        path (string): path of .txt file
+    
+    Returns:
+        data (list): an embedded array of the fetched information of the .txt file (data[line][tab]) 
+    """
     print(f"Fetching data from {path}...")
     try:
         with open('data/Results.txt', 'r') as file:
@@ -53,4 +61,4 @@ def txtToCleanDf(path: str) -> pd.DataFrame:
     return df
 
 df = txtToCleanDf(path="data/Results.txt")
-df.to_csv('data/CleanedResults.csv')
+df.to_csv('data/CleanedResults.csv', index=False)
