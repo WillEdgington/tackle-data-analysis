@@ -23,7 +23,7 @@ def filterForType(type: set[str], df: pd.DataFrame) -> pd.DataFrame:
     """Filters results DataFrame for specific type of tackle.
 
     Args:
-        type (string): the type of tackle to filter for
+        type (set[string]): the type of tackles to filter for
         df (DataFrame): the results DataFrame
     Returns:
         filteredDf (DataFrame): the results dataframe filtered for specified tackle type part
