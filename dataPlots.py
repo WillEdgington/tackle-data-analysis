@@ -102,7 +102,6 @@ def createXYPlot(df: pd.DataFrame, groupKey: str="Type", title: str="Analysis"):
 
 df = pd.read_csv('data/CleanedResults.csv')
 df = filterAttemptNumberFromType(df)
-lKneeAngDf = filterForPart('L_Knee_Angle', df)
 
 for part in df['Part'].unique():
     filteredDf = filterForPart(part=part, df=df)

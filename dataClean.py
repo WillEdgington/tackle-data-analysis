@@ -49,13 +49,29 @@ def getSubjectAndType(data: list) -> list:
     
     return subTypeArr + newData
 
+def getSideAndPart(data: list) -> list:
+    sections = data[1]
+    
+    parts, sides = [], []
+    for section in sections:
+        if section.startswith("R_") or section.startswith("L_"):
+            sides.append(section[0])
+            parts.append(section[2:])
+            continue
+        sides.append("AXIAL")
+        parts.append(section)
+    
+    return data[:1] + [parts] + [sides] + data[2:]
+
+
 def arrToDF(data: list) -> pd.DataFrame:
-    df = pd.DataFrame({"Subject": data[0], "Type": data[1], "Part": data[2], "X": data[3], "Y": data[4], "Z": data[5]})
+    df = pd.DataFrame({"Subject": data[0], "Type": data[1], "Part": data[2], "Side": data[3], "X": data[4], "Y": data[5], "Z": data[6]})
     return df
 
 def txtToCleanDf(path: str) -> pd.DataFrame:
     data = txtToArray(path="data/Results.txt")
     data = getXYZ(data)
+    data = getSideAndPart(data)
     data = getSubjectAndType(data)
     df = arrToDF(data)
     return df
