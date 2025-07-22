@@ -68,12 +68,19 @@ def arrToDF(data: list) -> pd.DataFrame:
     df = pd.DataFrame({"Subject": data[0], "Type": data[1], "Part": data[2], "Side": data[3], "X": data[4], "Y": data[5], "Z": data[6]})
     return df
 
+def sortRelToSubject(df: pd.DataFrame) -> pd.DataFrame:
+    df['subjectNum'] = df['Subject'].str.extract(r'S(\d+)').astype(int)
+    df = df.sort_values('subjectNum')
+    df = df.drop(columns='subjectNum')
+    return df
+
 def txtToCleanDf(path: str) -> pd.DataFrame:
     data = txtToArray(path="data/Results.txt")
     data = getXYZ(data)
     data = getSideAndPart(data)
     data = getSubjectAndType(data)
     df = arrToDF(data)
+    df = sortRelToSubject(df)
     return df
 
 df = txtToCleanDf(path="data/Results.txt")
